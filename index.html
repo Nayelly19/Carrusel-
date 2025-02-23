@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel de Imágenes</title>
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .carrusel {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            overflow: hidden;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .carrusel-contenedor {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carrusel-contenedor img {
+            width: 100%;
+            display: block;
+        }
+
+        .boton {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .boton.anterior {
+            left: 10px;
+        }
+
+        .boton.siguiente {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Estructura HTML del Carrusel -->
+    <div class="carrusel">
+        <div class="carrusel-contenedor">
+            <img src="https://i.pinimg.com/736x/e2/98/6a/e2986a4a927b7130a8caff76b9dbdb3c.jpg" alt="Imagen 1">
+            <img src="https://i.pinimg.com/736x/d5/d7/74/d5d77452a5cf3d9a8fc5322977af067b.jpg" alt="Imagen 2">
+            <img src="https://i.pinimg.com/736x/26/63/4e/26634e3655dbe2aa70553307af12f159.jpg" alt="Imagen 3">
+            <img src="https://i.pinimg.com/736x/8c/71/e4/8c71e478701ac892533dc488570fc379.jpg" alt="Imagen 4">
+            <img src="https://i.pinimg.com/736x/93/e1/a8/93e1a8127f7c641f810b8448fc692fad.jpg" alt="Imagen 5">
+
+        </div>
+        <button class="boton anterior" onclick="cambiarImagen(-1)">&#10094;</button>
+        <button class="boton siguiente" onclick="cambiarImagen(1)">&#10095;</button>
+    </div>
+
+    <!-- JavaScript para el Carrusel -->
+    <script>
+        let indiceActual = 0;
+        const imagenes = document.querySelectorAll('.carrusel-contenedor img');
+        const totalImagenes = imagenes.length;
+
+        function mostrarImagen(indice) {
+            // Oculta todas las imágenes
+            imagenes.forEach((img, i) => {
+                img.style.display = i === indice ? 'block' : 'none';
+            });
+        }
+
+        function cambiarImagen(direccion) {
+            indiceActual = (indiceActual + direccion + totalImagenes) % totalImagenes;
+            mostrarImagen(indiceActual);
+        }
+
+        function avanzarAutomaticamente() {
+            cambiarImagen(1);
+        }
+
+        // Cambia la imagen automáticamente cada 3 segundos
+        setInterval(avanzarAutomaticamente, 3000);
+
+        // Muestra la primera imagen al cargar la página
+        mostrarImagen(indiceActual);
+    </script>
+</body>
+</html>
